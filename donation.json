@@ -167,6 +167,25 @@
             "description": "Success"
           }
         }
+      },
+      "delete": {
+        "tags": [
+          "DonationCampaign"
+        ],
+        "parameters": [
+          {
+            "name": "hash",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
       }
     },
     "/api/DonationCampaign/ListSite": {
@@ -182,6 +201,35 @@
               "type": "string"
             }
           }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/DonationCampaignDTO"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DonationCampaignDTO"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DonationCampaignDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/DonationCampaign/ListAllCampaign": {
+      "get": {
+        "tags": [
+          "DonationCampaign"
         ],
         "responses": {
           "200": {
@@ -640,6 +688,47 @@
             }
           }
         },
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Payment/ListPaymentMethods": {
+      "get": {
+        "tags": [
+          "Payment"
+        ],
+        "parameters": [
+          {
+            "name": "hash",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Success"
@@ -1374,6 +1463,10 @@
           "interestRate": {
             "type": "number",
             "format": "double"
+          },
+          "softDescriptor": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -1549,6 +1642,14 @@
           "securityCode": {
             "type": "string",
             "nullable": true
+          },
+          "softDescriptor": {
+            "type": "string",
+            "nullable": true
+          },
+          "returnUrl": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -1627,9 +1728,9 @@
             "type": "string",
             "nullable": true
           },
-          "imageExtension": {
-            "type": "string",
-            "nullable": true
+          "targetValue": {
+            "type": "number",
+            "format": "double"
           }
         },
         "additionalProperties": false
@@ -1646,7 +1747,7 @@
           },
           "hash": {
             "type": "string",
-            "format": "uuid"
+            "nullable": true
           },
           "isActive": {
             "type": "boolean"
@@ -1663,9 +1764,9 @@
             "type": "string",
             "nullable": true
           },
-          "imageExtension": {
-            "type": "string",
-            "nullable": true
+          "targetValue": {
+            "type": "number",
+            "format": "double"
           }
         },
         "additionalProperties": false
@@ -1675,7 +1776,7 @@
         "properties": {
           "hash": {
             "type": "string",
-            "format": "uuid"
+            "nullable": true
           },
           "isActive": {
             "type": "boolean"
@@ -1692,9 +1793,9 @@
             "type": "string",
             "nullable": true
           },
-          "imageExtension": {
-            "type": "string",
-            "nullable": true
+          "targetValue": {
+            "type": "number",
+            "format": "double"
           }
         },
         "additionalProperties": false
@@ -2311,18 +2412,6 @@
             "type": "string",
             "nullable": true
           },
-          "idMerchantSafe2pay": {
-            "type": "string",
-            "nullable": true
-          },
-          "tokenSafe2pay": {
-            "type": "string",
-            "nullable": true
-          },
-          "tokenSandboxSafe2pay": {
-            "type": "string",
-            "nullable": true
-          },
           "active": {
             "type": "boolean"
           },
@@ -2356,6 +2445,10 @@
             "type": "string",
             "nullable": true
           },
+          "phoneNumber": {
+            "type": "string",
+            "nullable": true
+          },
           "username": {
             "type": "string",
             "nullable": true
@@ -2363,6 +2456,9 @@
           "email": {
             "type": "string",
             "nullable": true
+          },
+          "active": {
+            "type": "boolean"
           },
           "merchant": {
             "$ref": "#/components/schemas/Merchant"
